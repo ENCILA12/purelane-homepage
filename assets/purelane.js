@@ -1,5 +1,12 @@
+document.addEventListener('DOMContentLoaded', function () {
 (function () {
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- apply theme style from data attribute ---------- */
+  var scenesEl = document.getElementById('scenes');
+  if (scenesEl && scenesEl.dataset.style) {
+    document.body.setAttribute('data-style', scenesEl.dataset.style);
+  }
 
   /* ---------- reveal on scroll ---------- */
   var revs = document.querySelectorAll('.rv');
@@ -144,3 +151,4 @@
 
   frame();
 })();
+});
