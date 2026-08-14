@@ -1,0 +1,171 @@
+<!-- PURELANE PRODUCT GRID SECTION -->
+<section class="sec" id="shop" data-scene="3">
+  <div class="wrap">
+    
+    <!-- Scoped Header -->
+    <div class="panel-head rv">
+      <span class="kicker">{{ section.settings.kicker }}</span>
+      <h2 class="d2" style="margin-top:12px">{{ section.settings.title }}</h2>
+      <div class="rule">
+        <i></i>
+        {%- if section.settings.rule_icon != blank -%}
+          {{ section.settings.rule_icon }}
+        {%- else -%}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+        {%- endif -%}
+        <i></i>
+      </div>
+    </div>
+
+    <!-- Product Shelf Grid -->
+    <div class="shelf">
+      {%- assign featured_collection = section.settings.collection -%}
+      {%- if featured_collection != blank and featured_collection.products_count > 0 -%}
+        {%- for product in featured_collection.products limit: section.settings.products_to_show -%}
+          
+          {%- assign handle_class = '' -%}
+          {%- if product.handle contains 'tap-cleaner' -%}
+            {%- assign handle_class = 'p-tap' -%}
+          {%- elsif product.handle contains 'kitchen-cleaner' -%}
+            {%- assign handle_class = 'p-kitchen' -%}
+          {%- elsif product.handle contains 'copper' or product.handle contains 'brass' or product.handle contains 'metal' -%}
+            {%- assign handle_class = 'p-metal' -%}
+          {%- elsif product.handle contains 'washing-machine' or product.handle contains 'descaler' or product.handle contains 'machine' -%}
+            {%- assign handle_class = 'p-wm' -%}
+          {%- elsif product.handle contains 'floor' -%}
+            {%- assign handle_class = 'p-floor' -%}
+          {%- elsif product.handle contains 'dishwash' -%}
+            {%- assign handle_class = 'p-dish' -%}
+          {%- elsif product.handle contains 'laundry' -%}
+            {%- assign handle_class = 'p-laundry' -%}
+          {%- elsif product.handle contains 'toilet' -%}
+            {%- assign handle_class = 'p-toilet' -%}
+          {%- elsif product.handle contains 'handwash' -%}
+            {%- assign handle_class = 'p-handwash' -%}
+          {%- endif -%}
+
+          {%- assign badge_label = '' -%}
+          {%- if product.metafields.custom.badge_label != blank -%}
+            {%- assign badge_label = product.metafields.custom.badge_label -%}
+          {%- elsif product.tags contains 'Best seller' or product.tags contains 'bestseller' -%}
+            {%- assign badge_label = 'Best seller' -%}
+          {%- elsif product.tags contains 'Top rated' or product.tags contains 'toprated' -%}
+            {%- assign badge_label = 'Top rated' -%}
+          {%- elsif product.tags contains 'New' or product.tags contains 'new' -%}
+            {%- assign badge_label = 'New' -%}
+          {%- endif -%}
+
+          {%- assign rating = '4.8' -%}
+          {%- if product.metafields.custom.reviews_rating != blank -%}
+            {%- assign rating = product.metafields.custom.reviews_rating -%}
+          {%- endif -%}
+
+          {%- assign review_count = '150' -%}
+          {%- if product.metafields.custom.reviews_count != blank -%}
+            {%- assign review_count = product.metafields.custom.reviews_count -%}
+          {%- endif -%}
+
+          <article class="glass card rv">
+            <div class="shot">
+              {%- if badge_label != blank -%}
+                <span class="pill">{{ badge_label }}</span>
+              {%- endif -%}
+              {%- if handle_class != '' -%}
+                <span class="pimg {{ handle_class }}" role="img" aria-label="{{ product.title }}"></span>
+              {%- elsif product.featured_image != blank -%}
+                <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}">
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag }}
+              {%- endif -%}
+            </div>
+            
+            <h4>{{ product.title }}</h4>
+            
+            <div class="rate">
+              <b>★ {{ rating }}</b> · {{ review_count }} reviews
+            </div>
+            
+            <div class="pr">
+              <strong>{{ product.price | money_without_trailing_zeros }}</strong>
+              {%- if product.compare_at_price != blank and product.compare_at_price > product.price -%}
+                <s>{{ product.compare_at_price | money_without_trailing_zeros }}</s>
+                {%- assign saving_cents = product.compare_at_price | minus: product.price -%}
+                {%- assign saving_percent = saving_cents | times: 100 | divided_by: product.compare_at_price -%}
+                <em>{{ saving_percent }}% off</em>
+              {%- endif -%}
+            </div>
+
+            {%- form 'product', product -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id | default: product.variants[0].id }}">
+              {%- if product.available -%}
+                <button type="submit" class="btn btn-ghost btn-sm">Add to cart</button>
+              {%- else -%}
+                <button type="button" class="btn btn-ghost btn-sm" disabled style="opacity: 0.5; cursor: not-allowed;">Sold out</button>
+              {%- endif -%}
+            {%- endform -%}
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        <!-- Fallback cards when no products are found in dev store -->
+        {%- for i in (1..4) -%}
+          <article class="glass card rv">
+            <div class="shot">
+              <span class="pill">Best seller</span>
+              <div class="pimg p-tap" style="height: 122px; width: 100%;"></div>
+            </div>
+            <h4>Seeded Product {{ i }}</h4>
+            <div class="rate"><b>★ 4.8</b> · 237 reviews</div>
+            <div class="pr"><strong>₹200</strong><s>₹299</s><em>33% off</em></div>
+            <button class="btn btn-ghost btn-sm">Add to cart</button>
+          </article>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Product Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Section Kicker Text",
+      "default": "Bestsellers"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading Title",
+      "default": "Loved by 30,000 homes"
+    },
+    {
+      "type": "html",
+      "id": "rule_icon",
+      "label": "Decorative Divider Icon SVG",
+      "info": "Leave blank to use default leaf SVG."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to Show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Product Grid"
+    }
+  ]
+}
+{% endschema %}

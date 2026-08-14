@@ -1,0 +1,466 @@
+<!-- PURELANE HERO SECTION -->
+<section class="hero" data-scene="1">
+  <div class="hero-grid">
+
+    <!-- DESKTOP PROMISE BADGES -->
+    <div class="badges glass-2" aria-label="Product promises">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'promise_badge' -%}
+          <div class="badge">
+            <span class="bi">
+              {%- if block.settings.svg_icon != blank -%}
+                {{ block.settings.svg_icon }}
+              {%- else -%}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>
+              {%- endif -%}
+            </span>
+            <span>{{ block.settings.badge_label }}</span>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <!-- HERO COPY BLOCK -->
+    <div class="hero-copy">
+      <h1 class="d1 rv in">{{ section.settings.heading }}</h1>
+      
+      <div class="rule rv rv-d1">
+        <i></i>
+        {%- if section.settings.rule_icon != blank -%}
+          {{ section.settings.rule_icon }}
+        {%- else -%}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+        {%- endif -%}
+        <i></i>
+      </div>
+
+      <p class="lede rv rv-d2">{{ section.settings.subheading_text }}</p>
+
+      <div class="hero-cta rv rv-d3">
+        {%- if section.settings.button_1_label != blank -%}
+          <a class="btn btn-primary" href="{{ section.settings.button_1_link }}">
+            {{ section.settings.button_1_label }}
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button_2_label != blank -%}
+          <a class="btn btn-ghost" href="{{ section.settings.button_2_link }}">{{ section.settings.button_2_label }}</a>
+        {%- endif -%}
+      </div>
+
+      <!-- MOBILE BADGE STRIP -->
+      <div class="badgestrip rv rv-d4">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'promise_badge' -%}
+            <div class="glass-2">
+              {%- if block.settings.svg_icon != blank -%}
+                {{ block.settings.svg_icon }}
+              {%- endif -%}
+              {{ block.settings.badge_label | replace: '<br>', ' ' | replace: '<br/>', ' ' }}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+    <!-- HERO PRODUCT STAGE -->
+    <div class="hero-prod" id="heroProd">
+      <div class="hstage" id="hstage">
+        {%- assign slide_idx = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'product_slide' -%}
+            {%- assign slide_idx = slide_idx | plus: 1 -%}
+            {%- assign item_count_num = block.settings.item_count | plus: 0 -%}
+            <div class="hslide hs{{ block.settings.item_count }}{% if slide_idx == 1 %} on{% endif %}" data-n="{{ slide_idx }}" {{ block.shopify_attributes }}>
+              
+              <!-- Product A -->
+              {%- if block.settings.product_1_shape != 'none' -%}
+                <span class="hp {{ block.settings.product_1_shape }} a d1" role="img" aria-label="{{ block.settings.product_1_label }}"></span>
+              {%- elsif block.settings.product_1_image != blank -%}
+                <img src="{{ block.settings.product_1_image | image_url: width: 400 }}" class="hp a d1" alt="{{ block.settings.product_1_label }}" style="height: 80%; width: auto; object-fit: contain;">
+              {%- endif -%}
+
+              <!-- Product B (if count > 1) -->
+              {%- if item_count_num > 1 -%}
+                {%- if block.settings.product_2_shape != 'none' -%}
+                  <span class="hp {{ block.settings.product_2_shape }} b d2" role="img" aria-label="{{ block.settings.product_2_label }}"></span>
+                {%- elsif block.settings.product_2_image != blank -%}
+                  <img src="{{ block.settings.product_2_image | image_url: width: 400 }}" class="hp b d2" alt="{{ block.settings.product_2_label }}" style="height: 97%; width: auto; object-fit: contain;">
+                {%- endif -%}
+              {%- endif -%}
+
+              <!-- Product C (if count > 2) -->
+              {%- if item_count_num > 2 -%}
+                {%- if block.settings.product_3_shape != 'none' -%}
+                  <span class="hp {{ block.settings.product_3_shape }} c d3" role="img" aria-label="{{ block.settings.product_3_label }}"></span>
+                {%- elsif block.settings.product_3_image != blank -%}
+                  <img src="{{ block.settings.product_3_image | image_url: width: 400 }}" class="hp c d3" alt="{{ block.settings.product_3_label }}" style="height: 79%; width: auto; object-fit: contain;">
+                {%- endif -%}
+              {%- endif -%}
+
+              <!-- Price Tag -->
+              <div class="glass-2 ptag">
+                <span class="lbl">{{ block.settings.tag_label }}</span>
+                <span class="val">
+                  <strong>₹{{ block.settings.price }}</strong>
+                  {%- if block.settings.compare_price > block.settings.price -%}
+                    <s>₹{{ block.settings.compare_price }}</s>
+                  {%- endif -%}
+                </span>
+                {%- if block.settings.savings_text != blank -%}
+                  <span class="cut">{{ block.settings.savings_text }}</span>
+                {%- endif -%}
+              </div>
+
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      <!-- Slide Navigation Dots -->
+      <div class="hdots" id="hdots">
+        {%- assign dot_idx = 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'product_slide' -%}
+            {%- assign dot_idx = dot_idx | plus: 1 -%}
+            <button type="button" class="{% if dot_idx == 1 %}on{% endif %}" aria-label="Show {{ block.settings.tag_label }}"></button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hstage = document.getElementById('hstage');
+    var prod = document.getElementById('heroProd');
+    if (hstage && prod) {
+      var hs = [].slice.call(hstage.querySelectorAll('.hslide'));
+      var hd = [].slice.call(prod.querySelectorAll('#hdots button'));
+      var hi = 0, htimer = null;
+      
+      function hgo(n) {
+        hi = (n + hs.length) % hs.length;
+        hs.forEach(function (s, i) { s.classList.toggle('on', i === hi); });
+        hd.forEach(function (d, i) { d.classList.toggle('on', i === hi); });
+      }
+      
+      function hplay() {
+        if (!htimer && !reduce) {
+          htimer = setInterval(function () { hgo(hi + 1); }, 3800);
+        }
+      }
+      
+      function hstop() {
+        if (htimer) {
+          clearInterval(htimer);
+          htimer = null;
+        }
+      }
+      
+      hd.forEach(function (d, i) {
+        d.addEventListener('click', function () { hstop(); hgo(i); hplay(); });
+      });
+      
+      hstage.addEventListener('mouseenter', hstop);
+      hstage.addEventListener('mouseleave', hplay);
+      
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (es) {
+          es.forEach(function (e) { e.isIntersecting ? hplay() : hstop(); });
+        }, { threshold: 0.2 }).observe(hstage);
+      } else {
+        hplay();
+      }
+
+      /* ambient drift on the hero product container */
+      if (!reduce) {
+        prod.animate(
+          [{ filter: 'drop-shadow(0 34px 54px rgba(2,20,19,.6))' },
+           { filter: 'drop-shadow(0 42px 68px rgba(2,20,19,.68))' },
+           { filter: 'drop-shadow(0 34px 54px rgba(2,20,19,.6))' }],
+          { duration: 7000, iterations: Infinity, easing: 'ease-in-out' }
+        );
+      }
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Purelane Hero",
+  "settings": [
+    {
+      "type": "html",
+      "id": "heading",
+      "label": "Heading Text",
+      "default": "Clean<br>That<br><span class=\"lime\">Lasts</span>"
+    },
+    {
+      "type": "html",
+      "id": "rule_icon",
+      "label": "Decorative Divider Icon SVG",
+      "info": "Leave blank to use default leaf SVG."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading_text",
+      "label": "Subheading Text",
+      "default": "Homecare that works on the toughest grime, made from plants. Kind to your home, your family and the world outside it."
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Primary Button Label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Secondary Button Label",
+      "default": "How it works"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Secondary Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "promise_badge",
+      "name": "Promise Badge",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "html",
+          "id": "svg_icon",
+          "label": "Badge Icon SVG"
+        },
+        {
+          "type": "text",
+          "id": "badge_label",
+          "label": "Badge Label",
+          "default": "Plant<br>powered"
+        }
+      ]
+    },
+    {
+      "type": "product_slide",
+      "name": "Product Stage Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tag_label",
+          "label": "Price Tag Label",
+          "default": "Single bottle"
+        },
+        {
+          "type": "number",
+          "id": "price",
+          "label": "Offer Price (₹)",
+          "default": 200
+        },
+        {
+          "type": "number",
+          "id": "compare_price",
+          "label": "Original Price (₹)",
+          "default": 299
+        },
+        {
+          "type": "text",
+          "id": "savings_text",
+          "label": "Savings text label",
+          "default": "33% off"
+        },
+        {
+          "type": "select",
+          "id": "item_count",
+          "label": "Number of Products in Slide",
+          "options": [
+            { "value": "1", "label": "1 Product" },
+            { "value": "2", "label": "2 Products" },
+            { "value": "3", "label": "3 Products" }
+          ],
+          "default": "1"
+        },
+        {
+          "type": "header",
+          "content": "Product 1"
+        },
+        {
+          "type": "text",
+          "id": "product_1_label",
+          "label": "Product 1 Title",
+          "default": "Foaming Kitchen Cleaner"
+        },
+        {
+          "type": "select",
+          "id": "product_1_shape",
+          "label": "Product 1 Shape (Seeded SVG)",
+          "options": [
+            { "value": "none", "label": "Use Uploaded Photo" },
+            { "value": "p-kbtl", "label": "Kitchen Foam Spray (p-kbtl)" },
+            { "value": "p-tbtl", "label": "Tap Limescale Spray (p-tbtl)" },
+            { "value": "p-mbtl", "label": "Copper Pump (p-mbtl)" },
+            { "value": "p-dish", "label": "Dishwash Gel (p-dish)" },
+            { "value": "p-laundry", "label": "Laundry Detergent (p-laundry)" },
+            { "value": "p-toilet", "label": "Toilet Cleaner (p-toilet)" },
+            { "value": "p-handwash", "label": "Handwash Pump (p-handwash)" },
+            { "value": "p-floor", "label": "Floor Cleaner (p-floor)" }
+          ],
+          "default": "p-kbtl"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_1_image",
+          "label": "Product 1 Image Override",
+          "info": "Only used if shape set to 'Use Uploaded Photo'"
+        },
+        {
+          "type": "header",
+          "content": "Product 2 (Only if count >= 2)"
+        },
+        {
+          "type": "text",
+          "id": "product_2_label",
+          "label": "Product 2 Title",
+          "default": "Tap Cleaner"
+        },
+        {
+          "type": "select",
+          "id": "product_2_shape",
+          "label": "Product 2 Shape (Seeded SVG)",
+          "options": [
+            { "value": "none", "label": "Use Uploaded Photo" },
+            { "value": "p-kbtl", "label": "Kitchen Foam Spray (p-kbtl)" },
+            { "value": "p-tbtl", "label": "Tap Limescale Spray (p-tbtl)" },
+            { "value": "p-mbtl", "label": "Copper Pump (p-mbtl)" },
+            { "value": "p-dish", "label": "Dishwash Gel (p-dish)" },
+            { "value": "p-laundry", "label": "Laundry Detergent (p-laundry)" },
+            { "value": "p-toilet", "label": "Toilet Cleaner (p-toilet)" },
+            { "value": "p-handwash", "label": "Handwash Pump (p-handwash)" },
+            { "value": "p-floor", "label": "Floor Cleaner (p-floor)" }
+          ],
+          "default": "p-tbtl"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_2_image",
+          "label": "Product 2 Image Override"
+        },
+        {
+          "type": "header",
+          "content": "Product 3 (Only if count == 3)"
+        },
+        {
+          "type": "text",
+          "id": "product_3_label",
+          "label": "Product 3 Title",
+          "default": "Copper Cleaner"
+        },
+        {
+          "type": "select",
+          "id": "product_3_shape",
+          "label": "Product 3 Shape (Seeded SVG)",
+          "options": [
+            { "value": "none", "label": "Use Uploaded Photo" },
+            { "value": "p-kbtl", "label": "Kitchen Foam Spray (p-kbtl)" },
+            { "value": "p-tbtl", "label": "Tap Limescale Spray (p-tbtl)" },
+            { "value": "p-mbtl", "label": "Copper Pump (p-mbtl)" },
+            { "value": "p-dish", "label": "Dishwash Gel (p-dish)" },
+            { "value": "p-laundry", "label": "Laundry Detergent (p-laundry)" },
+            { "value": "p-toilet", "label": "Toilet Cleaner (p-toilet)" },
+            { "value": "p-handwash", "label": "Handwash Pump (p-handwash)" },
+            { "value": "p-floor", "label": "Floor Cleaner (p-floor)" }
+          ],
+          "default": "p-mbtl"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_3_image",
+          "label": "Product 3 Image Override"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Hero",
+      "blocks": [
+        {
+          "type": "promise_badge",
+          "settings": {
+            "badge_label": "Plant<br>powered",
+            "svg_icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z\"/><path d=\"M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z\"/></svg>"
+          }
+        },
+        {
+          "type": "promise_badge",
+          "settings": {
+            "badge_label": "Safe for<br>kids & pets",
+            "svg_icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M12 3 4.5 6v6.2c0 4.3 3.1 7.6 7.5 8.8 4.4-1.2 7.5-4.5 7.5-8.8V6L12 3Z\"/><path d=\"m9 12 2.2 2.2L15.4 10\"/></svg>"
+          }
+        },
+        {
+          "type": "promise_badge",
+          "settings": {
+            "badge_label": "Zero harsh<br>chemicals",
+            "svg_icon": "<svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"8.4\"/><path d=\"M6.4 17.6 17.6 6.4\"/></svg>"
+          }
+        },
+        {
+          "type": "product_slide",
+          "settings": {
+            "tag_label": "Single bottle",
+            "price": 200,
+            "compare_price": 299,
+            "savings_text": "33% off",
+            "item_count": "1",
+            "product_1_shape": "p-kbtl",
+            "product_1_label": "Foaming Kitchen Cleaner Spray"
+          }
+        },
+        {
+          "type": "product_slide",
+          "settings": {
+            "tag_label": "Any 2 products",
+            "price": 349,
+            "compare_price": 598,
+            "savings_text": "Save ₹249",
+            "item_count": "2",
+            "product_1_shape": "p-tbtl",
+            "product_1_label": "Tap Cleaner Spray",
+            "product_2_shape": "p-kbtl",
+            "product_2_label": "Kitchen Foam Spray"
+          }
+        },
+        {
+          "type": "product_slide",
+          "settings": {
+            "tag_label": "Any 3 products",
+            "price": 499,
+            "compare_price": 897,
+            "savings_text": "Save ₹398",
+            "item_count": "3",
+            "product_1_shape": "p-tbtl",
+            "product_1_label": "Tap Cleaner Spray",
+            "product_2_shape": "p-mbtl",
+            "product_2_label": "Copper Pump Cleaner",
+            "product_3_shape": "p-kbtl",
+            "product_3_label": "Kitchen Foam Spray"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

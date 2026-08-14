@@ -1,0 +1,387 @@
+<!-- PURELANE COMBOS SECTION -->
+<section class="sec" id="combos" data-scene="3">
+  <div class="wrap">
+    
+    <!-- Scoped Header -->
+    <div class="panel-head rv">
+      <span class="kicker">{{ section.settings.kicker }}</span>
+      <h2 class="d2" style="margin-top:12px">{{ section.settings.title }}</h2>
+      <div class="rule">
+        <i></i>
+        {%- if section.settings.rule_icon != blank -%}
+          {{ section.settings.rule_icon }}
+        {%- else -%}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+        {%- endif -%}
+        <i></i>
+      </div>
+      <p class="lede" style="margin:14px auto 0">{{ section.settings.subheading }}</p>
+    </div>
+
+    <!-- Scrollable Combo Rail -->
+    <div class="comborail rv">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'combo_item' -%}
+          
+          <article class="glass combo{% if block.settings.is_highlighted %} hero-combo{% endif %}" {{ block.shopify_attributes }}>
+            <div class="tray">
+              {%- if block.settings.save_badge != blank -%}
+                <span class="save">{{ block.settings.save_badge }}</span>
+              {%- endif -%}
+              {%- if block.settings.flag_badge != blank -%}
+                <span class="flag">{{ block.settings.flag_badge }}</span>
+              {%- endif -%}
+              
+              <!-- Stack list of 2-3 products -->
+              <div class="stack">
+                <!-- Item 1 -->
+                {%- if block.settings.item_1_shape != 'none' -%}
+                  <span class="it">
+                    {%- if block.settings.item_1_shape == 'tile' -%}
+                      <span class="tile">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+                      </span>
+                    {%- else -%}
+                      <span class="pimg {{ block.settings.item_1_shape }}" role="img" aria-label="{{ block.settings.item_1_label }}"></span>
+                    {%- endif -%}
+                    <span>{{ block.settings.item_1_label }}</span>
+                  </span>
+                {%- endif -%}
+
+                <!-- Plus 1 -->
+                {%- if block.settings.item_2_shape != 'none' -%}
+                  <span class="plus" aria-hidden="true">+</span>
+                  <span class="it">
+                    {%- if block.settings.item_2_shape == 'tile' -%}
+                      <span class="tile">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+                      </span>
+                    {%- else -%}
+                      <span class="pimg {{ block.settings.item_2_shape }}" role="img" aria-label="{{ block.settings.item_2_label }}"></span>
+                    {%- endif -%}
+                    <span>{{ block.settings.item_2_label }}</span>
+                  </span>
+                {%- endif -%}
+
+                <!-- Plus 2 -->
+                {%- if block.settings.item_3_shape != 'none' -%}
+                  <span class="plus" aria-hidden="true">+</span>
+                  <span class="it">
+                    {%- if block.settings.item_3_shape == 'tile' -%}
+                      <span class="tile">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21c0-6.5 3.5-11 8-12.5C20 15 16.5 20 12 21Z"/><path d="M12 21C12 14.5 8.5 10 4 8.5 4 15 7.5 20 12 21Z"/></svg>
+                      </span>
+                    {%- else -%}
+                      <span class="pimg {{ block.settings.item_3_shape }}" role="img" aria-label="{{ block.settings.item_3_label }}"></span>
+                    {%- endif -%}
+                    <span>{{ block.settings.item_3_label }}</span>
+                  </span>
+                {%- endif -%}
+              </div>
+            </div>
+
+            <!-- Body Details -->
+            <div class="body">
+              <h3>{{ block.settings.combo_title }}</h3>
+              <div class="cnt">{{ block.settings.combo_count }}</div>
+              <p class="inc">{{ block.settings.combo_includes }}</p>
+              
+              <div class="prow">
+                <strong>₹{{ block.settings.price }}</strong>
+                {%- if block.settings.compare_price > block.settings.price -%}
+                  <s>₹{{ block.settings.compare_price }}</s>
+                  {%- if block.settings.custom_saving_text != blank -%}
+                    <em>{{ block.settings.custom_saving_text }}</em>
+                  {%- endif -%}
+                {%- endif -%}
+              </div>
+              
+              <div class="fine">Inclusive of all taxes · COD available</div>
+              
+              <a class="btn {% if block.settings.is_highlighted %}btn-primary{% else %}btn-ghost{% endif %}" href="{{ block.settings.button_link }}">
+                {{ block.settings.button_label }}
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+              </a>
+            </div>
+          </article>
+          
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="swipecue" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13m-5-6 6 6-6 6"/></svg>
+      Swipe for more combos
+    </div>
+    
+    <p class="railnote">{{ section.settings.rail_note }}</p>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Purelane Combos Rail",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Section Kicker Text",
+      "default": "Pre-built to save you money"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading Title",
+      "default": "Best selling combos"
+    },
+    {
+      "type": "html",
+      "id": "rule_icon",
+      "label": "Decorative Divider Icon SVG",
+      "info": "Leave blank to use default leaf SVG."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading Text",
+      "default": "Swipe through the boxes people order most. Each one is already priced below buying the same products on their own."
+    },
+    {
+      "type": "textarea",
+      "id": "rail_note",
+      "label": "Rail Note Text",
+      "default": "Tapping \"Shop bundle\" opens the bundle picker with these products already added. You can still swap anything before you pay."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "combo_item",
+      "name": "Combo Bundle",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "is_highlighted",
+          "label": "Highlight Bundle (Gold borders)",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "save_badge",
+          "label": "Save Tag Label",
+          "default": "You save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "flag_badge",
+          "label": "Kicker Flag Label",
+          "info": "e.g., 'Most popular', 'Best value'."
+        },
+        {
+          "type": "text",
+          "id": "combo_title",
+          "label": "Combo Title",
+          "default": "Kitchen essentials"
+        },
+        {
+          "type": "text",
+          "id": "combo_count",
+          "label": "Product Count Description",
+          "default": "3 products"
+        },
+        {
+          "type": "textarea",
+          "id": "combo_includes",
+          "label": "Includes Product List description",
+          "default": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately."
+        },
+        {
+          "type": "number",
+          "id": "price",
+          "label": "Offer Price (₹)",
+          "default": 499
+        },
+        {
+          "type": "number",
+          "id": "compare_price",
+          "label": "Original Price (₹)",
+          "default": 897
+        },
+        {
+          "type": "text",
+          "id": "custom_saving_text",
+          "label": "Custom savings label",
+          "default": "Save ₹398"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop bundle"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "header",
+          "content": "Product Stack Item 1"
+        },
+        {
+          "type": "text",
+          "id": "item_1_label",
+          "label": "Item 1 Short Description",
+          "default": "Cuts grease instantly"
+        },
+        {
+          "type": "select",
+          "id": "item_1_shape",
+          "label": "Item 1 SVG Shape Class",
+          "options": [
+            { "value": "none", "label": "Disabled" },
+            { "value": "tile", "label": "Placeholder Leaf Tile" },
+            { "value": "p-kbtl", "label": "Foam Spray Bottle" },
+            { "value": "p-tbtl", "label": "Tap Spray Bottle" },
+            { "value": "p-mbtl", "label": "Copper Pump Bottle" },
+            { "value": "p-dish", "label": "Dishwash Gel" },
+            { "value": "p-laundry", "label": "Laundry Detergent" },
+            { "value": "p-wm", "label": "Washing Machine Cleaner" },
+            { "value": "p-floor", "label": "Floor Cleaner" },
+            { "value": "p-toilet", "label": "Toilet Cleaner" },
+            { "value": "p-handwash", "label": "Handwash Pump" },
+            { "value": "p-eraser", "label": "Magic Eraser (p-eraser)" }
+          ],
+          "default": "p-kbtl"
+        },
+        {
+          "type": "header",
+          "content": "Product Stack Item 2"
+        },
+        {
+          "type": "text",
+          "id": "item_2_label",
+          "label": "Item 2 Short Description",
+          "default": "Squeaky clean dishes"
+        },
+        {
+          "type": "select",
+          "id": "item_2_shape",
+          "label": "Item 2 SVG Shape Class",
+          "options": [
+            { "value": "none", "label": "Disabled" },
+            { "value": "tile", "label": "Placeholder Leaf Tile" },
+            { "value": "p-kbtl", "label": "Foam Spray Bottle" },
+            { "value": "p-tbtl", "label": "Tap Spray Bottle" },
+            { "value": "p-mbtl", "label": "Copper Pump Bottle" },
+            { "value": "p-dish", "label": "Dishwash Gel" },
+            { "value": "p-laundry", "label": "Laundry Detergent" },
+            { "value": "p-wm", "label": "Washing Machine Cleaner" },
+            { "value": "p-floor", "label": "Floor Cleaner" },
+            { "value": "p-toilet", "label": "Toilet Cleaner" },
+            { "value": "p-handwash", "label": "Handwash Pump" },
+            { "value": "p-eraser", "label": "Magic Eraser (p-eraser)" }
+          ],
+          "default": "p-dish"
+        },
+        {
+          "type": "header",
+          "content": "Product Stack Item 3"
+        },
+        {
+          "type": "text",
+          "id": "item_3_label",
+          "label": "Item 3 Short Description",
+          "default": "Melts hard water stains"
+        },
+        {
+          "type": "select",
+          "id": "item_3_shape",
+          "label": "Item 3 SVG Shape Class",
+          "options": [
+            { "value": "none", "label": "Disabled" },
+            { "value": "tile", "label": "Placeholder Leaf Tile" },
+            { "value": "p-kbtl", "label": "Foam Spray Bottle" },
+            { "value": "p-tbtl", "label": "Tap Spray Bottle" },
+            { "value": "p-mbtl", "label": "Copper Pump Bottle" },
+            { "value": "p-dish", "label": "Dishwash Gel" },
+            { "value": "p-laundry", "label": "Laundry Detergent" },
+            { "value": "p-wm", "label": "Washing Machine Cleaner" },
+            { "value": "p-floor", "label": "Floor Cleaner" },
+            { "value": "p-toilet", "label": "Toilet Cleaner" },
+            { "value": "p-handwash", "label": "Handwash Pump" },
+            { "value": "p-eraser", "label": "Magic Eraser (p-eraser)" }
+          ],
+          "default": "p-tbtl"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Purelane Combos Rail",
+      "blocks": [
+        {
+          "type": "combo_item",
+          "settings": {
+            "is_highlighted": false,
+            "save_badge": "You save ₹398",
+            "flag_badge": "Most popular",
+            "combo_title": "Kitchen essentials",
+            "combo_count": "3 products",
+            "combo_includes": "Includes: Foaming Kitchen Cleaner, Dishwash Gel & Tap Cleaner. Everything for a sparkling kitchen, no need to pick separately.",
+            "price": 499,
+            "compare_price": 897,
+            "custom_saving_text": "Save ₹398",
+            "item_1_shape": "p-kbtl",
+            "item_1_label": "Cuts grease instantly",
+            "item_2_shape": "p-dish",
+            "item_2_label": "Squeaky clean dishes",
+            "item_3_shape": "p-tbtl",
+            "item_3_label": "Melts hard water stains"
+          }
+        },
+        {
+          "type": "combo_item",
+          "settings": {
+            "is_highlighted": false,
+            "save_badge": "You save ₹448",
+            "combo_title": "Laundry care bundle",
+            "combo_count": "3 products",
+            "combo_includes": "Includes: Laundry Detergent, Fabric Conditioner & Machine Cleaner Powder. Softer, fresher wash, all in one box.",
+            "price": 499,
+            "compare_price": 947,
+            "custom_saving_text": "Save ₹448",
+            "item_1_shape": "p-laundry",
+            "item_1_label": "Removes tough stains & odour",
+            "item_2_shape": "tile",
+            "item_2_label": "Softens & freshens every wash",
+            "item_3_shape": "p-wm",
+            "item_3_label": "Deep-cleans your machine"
+          }
+        },
+        {
+          "type": "combo_item",
+          "settings": {
+            "is_highlighted": true,
+            "save_badge": "Biggest saving",
+            "flag_badge": "Best value",
+            "combo_title": "Complete home bundle",
+            "combo_count": "5 products",
+            "combo_includes": "Includes: Kitchen Cleaner, Laundry Detergent, Floor Cleaner, Toilet Cleaner & Handwash. Our biggest saving box.",
+            "price": 799,
+            "compare_price": 1495,
+            "custom_saving_text": "Save ₹696",
+            "item_1_shape": "p-kbtl",
+            "item_1_label": "Cuts grease instantly",
+            "item_2_shape": "p-floor",
+            "item_2_label": "Kills 99.9% germs",
+            "item_3_shape": "p-handwash",
+            "item_3_label": "Gentle hydration for hands"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
