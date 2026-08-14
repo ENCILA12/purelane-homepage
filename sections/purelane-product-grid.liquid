@@ -73,7 +73,7 @@
               {%- if handle_class != '' -%}
                 <span class="pimg {{ handle_class }}" role="img" aria-label="{{ product.title }}"></span>
               {%- elsif product.featured_image != blank -%}
-                <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}">
+                <img src="{{ product.featured_image | image_url: width: 300 }}" alt="{{ product.title }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}">
               {%- else -%}
                 {{ 'product-1' | placeholder_svg_tag }}
               {%- endif -%}

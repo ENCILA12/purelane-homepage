@@ -77,7 +77,7 @@
               {%- if block.settings.product_1_shape != 'none' -%}
                 <span class="hp {{ block.settings.product_1_shape }} a d1" role="img" aria-label="{{ block.settings.product_1_label }}"></span>
               {%- elsif block.settings.product_1_image != blank -%}
-                <img src="{{ block.settings.product_1_image | image_url: width: 400 }}" class="hp a d1" alt="{{ block.settings.product_1_label }}" style="height: 80%; width: auto; object-fit: contain;">
+                <img src="{{ block.settings.product_1_image | image_url: width: 400 }}" class="hp a d1" alt="{{ block.settings.product_1_label }}" style="height: 80%; width: auto; object-fit: contain;" width="{{ block.settings.product_1_image.width }}" height="{{ block.settings.product_1_image.height }}">
               {%- endif -%}
 
               <!-- Product B (if count > 1) -->
@@ -85,7 +85,7 @@
                 {%- if block.settings.product_2_shape != 'none' -%}
                   <span class="hp {{ block.settings.product_2_shape }} b d2" role="img" aria-label="{{ block.settings.product_2_label }}"></span>
                 {%- elsif block.settings.product_2_image != blank -%}
-                  <img src="{{ block.settings.product_2_image | image_url: width: 400 }}" class="hp b d2" alt="{{ block.settings.product_2_label }}" style="height: 97%; width: auto; object-fit: contain;">
+                  <img src="{{ block.settings.product_2_image | image_url: width: 400 }}" class="hp b d2" alt="{{ block.settings.product_2_label }}" style="height: 97%; width: auto; object-fit: contain;" width="{{ block.settings.product_2_image.width }}" height="{{ block.settings.product_2_image.height }}">
                 {%- endif -%}
               {%- endif -%}
 
@@ -94,7 +94,7 @@
                 {%- if block.settings.product_3_shape != 'none' -%}
                   <span class="hp {{ block.settings.product_3_shape }} c d3" role="img" aria-label="{{ block.settings.product_3_label }}"></span>
                 {%- elsif block.settings.product_3_image != blank -%}
-                  <img src="{{ block.settings.product_3_image | image_url: width: 400 }}" class="hp c d3" alt="{{ block.settings.product_3_label }}" style="height: 79%; width: auto; object-fit: contain;">
+                  <img src="{{ block.settings.product_3_image | image_url: width: 400 }}" class="hp c d3" alt="{{ block.settings.product_3_label }}" style="height: 79%; width: auto; object-fit: contain;" width="{{ block.settings.product_3_image.width }}" height="{{ block.settings.product_3_image.height }}">
                 {%- endif -%}
               {%- endif -%}
 
